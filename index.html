@@ -276,14 +276,32 @@
     <p class="section-sub">아래 QR 코드를 스캔하여 고객 동의를 완료해 주시면<br>담당 컨설턴트가 빠르게 연락드리겠습니다.</p>
 
     <div style="display:flex; flex-direction:column; align-items:center; gap:1.25rem; padding: 1rem 0 0.5rem;">
-      <!-- QR -->
-      <div class="qr-box" style="padding: 16px;">
-        <div id="qrcode"></div>
+
+      <!-- PC: QR 코드 -->
+      <div id="pc-qr" style="display:flex; flex-direction:column; align-items:center; gap:1rem;">
+        <div class="qr-box" style="padding: 16px;">
+          <div id="qrcode"></div>
+        </div>
+        <div style="text-align:center;">
+          <p style="font-size:15px; font-weight:600; color:#1a1a1a; margin-bottom:6px;">QR 코드 스캔 후 고객 동의</p>
+          <p style="font-size:13px; color:#888; line-height:1.7;">스마트폰 카메라로 QR 코드를 스캔하시면<br>삼성생명 디지털 프로필 페이지로 연결됩니다.<br>고객 동의 완료 시 담당자가 직접 연락드립니다.</p>
+        </div>
       </div>
-      <div style="text-align:center;">
-        <p style="font-size:15px; font-weight:600; color:#1a1a1a; margin-bottom:6px;">QR 코드 스캔 후 고객 동의</p>
-        <p style="font-size:13px; color:#888; line-height:1.7;">스마트폰 카메라로 QR 코드를 스캔하시면<br>삼성생명 디지털 프로필 페이지로 연결됩니다.<br>고객 동의 완료 시 담당자가 직접 연락드립니다.</p>
+
+      <!-- 모바일: 바로 연결 버튼 -->
+      <div id="mobile-btn" style="display:none; flex-direction:column; align-items:center; gap:1rem; width:100%;">
+        <i class="ti ti-device-mobile" style="font-size:36px; color:#185FA5;"></i>
+        <div style="text-align:center;">
+          <p style="font-size:15px; font-weight:600; color:#1a1a1a; margin-bottom:6px;">아래 버튼을 눌러 고객 동의</p>
+          <p style="font-size:13px; color:#888; line-height:1.7;">삼성생명 디지털 프로필 페이지로 연결됩니다.<br>고객 동의 완료 시 담당자가 직접 연락드립니다.</p>
+        </div>
+        <a href="https://mws.samsunglife.com:8440/#/main/bc/TSSBC500M?mdigitkey=0002285859" target="_blank"
+           style="background:#185FA5; color:#fff; padding:14px 36px; border-radius:8px; font-size:15px; font-weight:600; text-decoration:none; display:inline-block;">
+          디지털 프로필 바로 연결하기
+        </a>
       </div>
+
+      <!-- 개인정보 안내 -->
       <div style="display:flex; align-items:center; gap:10px; background:#fff; border:0.5px solid #e0e0e0; border-radius:10px; padding:14px 20px;">
         <i class="ti ti-lock-check" style="font-size:22px; color:#185FA5;"></i>
         <p style="font-size:12px; color:#555; line-height:1.6;">고객 정보는 보험 상담 목적으로만 활용되며<br>삼성생명 개인정보처리방침에 따라 안전하게 보호됩니다.</p>
@@ -310,6 +328,12 @@
     }
     const msg = encodeURIComponent(`안녕하세요, ${name}입니다.\n연락처: ${tel}\n관심 상품: ${product}\n상담 신청드립니다.`);
     window.open(`http://pf.kakao.com/_xogDnn/chat?text=${msg}`, '_blank');
+  }
+
+  const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  if (isMobile) {
+    document.getElementById('pc-qr').style.display = 'none';
+    document.getElementById('mobile-btn').style.display = 'flex';
   }
 
   new QRCode(document.getElementById('qrcode'), {
