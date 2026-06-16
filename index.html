@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>삼성생명 보험 솔루션 — 기업과 개인을 위한 맞춤 보장</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+    a { color: inherit; text-decoration: none; }
+
+    .container { max-width: 780px; margin: 0 auto; background: #fff; box-shadow: 0 2px 24px rgba(0,0,0,0.08); }
+
+    /* HERO */
+    .hero { background: linear-gradient(135deg, #042C53 0%, #185FA5 60%, #378ADD 100%); padding: 2.5rem 2rem 3rem; position: relative; overflow: hidden; }
+    .hero-circle1 { position: absolute; right: -40px; top: -40px; width: 260px; height: 260px; border-radius: 50%; background: rgba(255,255,255,0.04); }
+    .hero-circle2 { position: absolute; right: 60px; bottom: -60px; width: 180px; height: 180px; border-radius: 50%; background: rgba(255,255,255,0.05); }
+    .hero-inner { position: relative; z-index: 1; }
+    .logo-wrap { display: inline-flex; flex-direction: column; margin-bottom: 1.75rem; border-left: 3px solid rgba(255,255,255,0.7); padding-left: 12px; }
+    .logo-main { font-size: 20px; font-weight: 600; color: #fff; letter-spacing: 0.02em; line-height: 1.2; }
+    .logo-sub { font-size: 12px; font-weight: 400; color: rgba(255,255,255,0.7); letter-spacing: 0.12em; }
+    .hero h1 { font-size: 26px; font-weight: 600; color: #fff; line-height: 1.4; margin-bottom: 1rem; }
+    .hero p { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.7; margin-bottom: 2rem; max-width: 480px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn-primary { background: #fff; color: #185FA5; border: none; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+    .btn-outline { background: transparent; color: #fff; border: 1.5px solid rgba(255,255,255,0.5); padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; text-decoration: none; display: inline-block; }
+    .btn-primary:hover { background: #e8f0fe; }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+    /* STATS */
+    .stats { background: #f8f9fb; padding: 1.5rem 2rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; text-align: center; }
+    .stat-num { font-size: 22px; font-weight: 600; color: #185FA5; }
+    .stat-label { font-size: 12px; color: #888; margin-top: 2px; }
+    .stat-mid { border-left: 0.5px solid #e0e0e0; border-right: 0.5px solid #e0e0e0; }
+
+    /* SECTIONS */
+    .section { padding: 3rem 2rem; }
+    .section-label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: #888; margin-bottom: 0.5rem; }
+    .section-title { font-size: 22px; font-weight: 600; color: #1a1a1a; margin-bottom: 0.5rem; }
+    .section-sub { font-size: 15px; color: #555; margin-bottom: 2rem; line-height: 1.6; }
+    .divider { height: 0.5px; background: #e8e8e8; margin: 0 2rem; }
+
+    /* CARDS */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+    .card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1.25rem; }
+    .card i { font-size: 22px; color: #185FA5; }
+    .card-title { font-weight: 600; font-size: 14px; margin: 10px 0 6px; color: #1a1a1a; }
+    .card-desc { font-size: 12px; color: #777; line-height: 1.6; }
+
+    /* BADGE */
+    .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 6px; margin-top: 10px; }
+    .badge-blue { background: #E6F1FB; color: #0C447C; }
+    .badge-teal { background: #E1F5EE; color: #085041; }
+    .badge-amber { background: #FAEEDA; color: #633806; }
+    .badge-purple { background: #EEEDFE; color: #3C3489; }
+
+    /* CHART LEGEND */
+    .legend { display: flex; gap: 16px; margin-top: 12px; font-size: 12px; color: #777; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; margin-right: 4px; vertical-align: middle; }
+
+    /* METRIC CARDS */
+    .metric-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 2rem; }
+    .metric-card { background: #f8f9fb; border-radius: 12px; padding: 1.25rem; }
+    .metric-label { font-size: 11px; color: #888; margin-bottom: 6px; }
+    .metric-val { font-size: 22px; font-weight: 600; color: #1a1a1a; }
+
+    /* PERSONAL INSURANCE CARDS */
+    .personal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 12px; }
+    .personal-card { background: #fff; border: 0.5px solid #e0e0e0; border-radius: 12px; padding: 1.25rem; position: relative; }
+    .personal-card.featured { border: 2px solid #B5D4F4; }
+    .popular-tag { position: absolute; top: -1px; right: 12px; background: #E6F1FB; color: #0C447C; font-size: 10px; font-weight: 600; padding: 2px 8px; border-radius: 0 0 6px 6px; }
+    .personal-card i { font-size: 20px; }
+    .personal-title { font-weight: 600; font-size: 14px; margin: 10px 0 4px; color: #1a1a1a; }
+    .personal-desc { font-size: 11px; color: #777; line-height: 1.5; }
+
+    /* CONSULT SECTION */
+    .consult { background: #f8f9fb; padding: 3rem 2rem; }
+    .consult-inner { display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; }
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 1.5rem; }
+    input[type=text], select {
+      width: 100%; padding: 10px 14px; font-size: 14px;
+      border: 0.5px solid #ccc; border-radius: 8px;
+      background: #fff; color: #1a1a1a; outline: none;
+      font-family: inherit;
+    }
+    input[type=text]:focus, select:focus { border-color: #185FA5; box-shadow: 0 0 0 2px rgba(24,95,165,0.15); }
+    .btn-submit { background: #185FA5; color: #fff; border: none; padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .btn-submit:hover { background: #0C447C; }
+
+    /* QR */
+    .qr-wrap { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+    .qr-box { background: #fff; padding: 12px; border-radius: 12px; border: 0.5px solid #e0e0e0; }
+    .qr-label { font-size: 11px; color: #888; text-align: center; line-height: 1.5; }
+
+    /* BTN LINK */
+    .btn-link { margin-top: 1.5rem; padding: 10px 20px; font-size: 13px; border-radius: 8px; border: 0.5px solid #ccc; background: transparent; color: #1a1a1a; cursor: pointer; font-family: inherit; }
+    .btn-link:hover { background: #f0f0f0; }
+
+    /* FOOTER */
+    .footer { background: #042C53; color: rgba(255,255,255,0.5); text-align: center; padding: 1.5rem 2rem; font-size: 12px; line-height: 1.8; }
+
+    @media (max-width: 520px) {
+      .consult-inner { grid-template-columns: 1fr; }
+      .qr-wrap { flex-direction: row; align-items: center; }
+      .hero h1 { font-size: 22px; }
+      .stats { grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+      .stat-num { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-circle1"></div>
+    <div class="hero-circle2"></div>
+    <div class="hero-inner">
+      <div class="logo-wrap">
+        <span class="logo-main">Samsung</span>
+        <span class="logo-sub">LIFE INSURANCE</span>
+      </div>
+      <h1>기업과 개인 모두를 위한<br>맞춤형 보험 솔루션</h1>
+      <p>삼성생명이 기업의 임직원 보장부터 개인의 건강과 미래까지<br>체계적으로 설계해 드립니다.</p>
+      <div class="hero-btns">
+        <a href="#corporate" class="btn-primary">기업보험 알아보기</a>
+        <a href="#personal" class="btn-outline">개인보험 알아보기</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div>
+      <p class="stat-num">72년</p>
+      <p class="stat-label">업계 최장 역사</p>
+    </div>
+    <div class="stat-mid">
+      <p class="stat-num">1위</p>
+      <p class="stat-label">생명보험 시장점유율</p>
+    </div>
+    <div>
+      <p class="stat-num">AA+</p>
+      <p class="stat-label">신용등급</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 기업재해보장보험 -->
+  <div class="section" id="corporate">
+    <p class="section-label">기업보험</p>
+    <h2 class="section-title">삼성생명 기업재해보장보험</h2>
+    <p class="section-sub">임직원의 업무상 재해를 폭넓게 보장하며, 기업의 법적 책임 이행과 우수인재 유지를 동시에 실현합니다.</p>
+
+    <div class="card-grid">
+      <div class="card">
+        <i class="ti ti-shield-check"></i>
+        <p class="card-title">업무상 재해 보장</p>
+        <p class="card-desc">근무 중 사고·질병에 대한 사망·후유장해 보상</p>
+      </div>
+      <div class="card">
+        <i class="ti ti-building-factory"></i>
+        <p class="card-title">통근재해 보장</p>
+        <p class="card-desc">출퇴근 중 발생한 사고까지 폭넓게 보장</p>
+      </div>
+      <div class="card">
+        <i class="ti ti-heart-rate-monitor"></i>
+        <p class="card-title">직업성 질병 보장</p>
+        <p class="card-desc">업무 관련 직업성 질병 진단·치료비 지원</p>
+      </div>
+      <div class="card">
+        <i class="ti ti-gavel"></i>
+        <p class="card-title">법적 책임 보장</p>
+        <p class="card-desc">산업재해 관련 사용자 법적 배상책임 지원</p>
+      </div>
+    </div>
+
+    <p style="font-size:13px; font-weight:600; color:#888; margin-bottom:0.75rem;">보장 범위 비교 — 기업재해보장보험 vs 근재보험</p>
+    <div style="position:relative; width:100%; height:260px;">
+      <canvas id="compareChart" role="img" aria-label="기업재해보장보험과 근재보험 보장 범위 비교 레이더 차트">기업재해보장보험이 전반적으로 더 넓은 보장 범위를 제공합니다.</canvas>
+    </div>
+    <div class="legend">
+      <span><span class="legend-dot" style="background:#185FA5;"></span>기업재해보장보험</span>
+      <span><span class="legend-dot" style="background:#1D9E75;"></span>근재보험</span>
+    </div>
+    <button class="btn-link" onclick="document.getElementById('consult').scrollIntoView({behavior:'smooth'})">가입 조건 및 보험료 문의 →</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CEO 플랜 -->
+  <div class="section" id="ceo">
+    <p class="section-label">CEO 플랜</p>
+    <h2 class="section-title">법인명의 CEO 보험</h2>
+    <p class="section-sub">법인 비용으로 CEO를 보장하고, 상속세 절감 및 퇴직금 설계를 동시에 실현합니다.</p>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <p class="metric-label">절세 효과 (법인세)</p>
+        <p class="metric-val">최대 24%</p>
+      </div>
+      <div class="metric-card">
+        <p class="metric-label">퇴직금 재원 마련</p>
+        <p class="metric-val">체계적 적립</p>
+      </div>
+      <div class="metric-card">
+        <p class="metric-label">상속세 재원</p>
+        <p class="metric-val">사전 준비</p>
+      </div>
+    </div>
+
+    <p style="font-size:13px; font-weight:600; color:#888; margin-bottom:0.75rem;">보험료 납입 방식별 절세 효과 비교</p>
+    <div style="position:relative; width:100%; height:200px;">
+      <canvas id="ceoChart" role="img" aria-label="CEO 플랜 납입 방식별 절세 효과 비교 바 차트">납입 방식별 절세 효과 비교를 보여줍니다.</canvas>
+    </div>
+    <div class="legend" style="margin-top:12px;">
+      <span><span class="legend-dot" style="background:#185FA5;"></span>납입 보험료</span>
+      <span><span class="legend-dot" style="background:#1D9E75;"></span>절세 효과</span>
+    </div>
+    <button class="btn-link" onclick="document.getElementById('consult').scrollIntoView({behavior:'smooth'})">CEO 플랜 상세 문의 →</button>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 개인보험 -->
+  <div class="section" id="personal">
+    <p class="section-label">개인보험</p>
+    <h2 class="section-title">삼성생명 대표 개인보험 상품</h2>
+    <p class="section-sub">생애 주기에 맞춰 건강, 노후, 생명을 모두 아우르는 통합 보장을 제공합니다.</p>
+
+    <div class="personal-grid">
+      <div class="personal-card featured">
+        <span class="popular-tag">인기</span>
+        <i class="ti ti-lungs" style="color:#185FA5;"></i>
+        <p class="personal-title">암보험</p>
+        <p class="personal-desc">일반암 / 소액암 / 유사암 포함 진단비 지급</p>
+        <span class="badge badge-blue">진단비 최대 1억</span>
+      </div>
+      <div class="personal-card">
+        <i class="ti ti-heart" style="color:#D85A30;"></i>
+        <p class="personal-title">심혈관보험</p>
+        <p class="personal-desc">급성심근경색·뇌졸중 등 심뇌혈관 집중 보장</p>
+        <span class="badge badge-amber">3대 질병 특화</span>
+      </div>
+      <div class="personal-card">
+        <i class="ti ti-user-heart" style="color:#1D9E75;"></i>
+        <p class="personal-title">종신보험</p>
+        <p class="personal-desc">사망·상속 대비 평생 보장, 적립금 활용 가능</p>
+        <span class="badge badge-teal">상속 플랜 연계</span>
+      </div>
+      <div class="personal-card">
+        <i class="ti ti-wheelchair" style="color:#7F77DD;"></i>
+        <p class="personal-title">간병/치매보험</p>
+        <p class="personal-desc">장기간병 상태·치매 진단 시 생활비 지원</p>
+        <span class="badge badge-purple">노후 필수</span>
+      </div>
+      <div class="personal-card">
+        <i class="ti ti-coin" style="color:#BA7517;"></i>
+        <p class="personal-title">연금보험</p>
+        <p class="personal-desc">노후 월 생활비를 안정적으로 확보하는 연금 플랜</p>
+        <span class="badge badge-amber">세제 혜택</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 상담 신청 -->
+  <div class="consult" id="consult">
+    <p class="section-label">상담 신청</p>
+    <h2 class="section-title">맞춤 보험 설계 상담</h2>
+    <p class="section-sub">기업 규모와 개인 상황에 맞는 최적의 보장을 설계해 드립니다.</p>
+
+    <div class="consult-inner">
+      <div>
+        <div class="form-grid">
+          <input type="text" placeholder="성함" />
+          <input type="text" placeholder="연락처" />
+          <select>
+            <option value="">관심 상품 선택</option>
+            <option>기업재해보장보험</option>
+            <option>CEO 플랜 (법인보험)</option>
+            <option>암보험</option>
+            <option>심혈관보험</option>
+            <option>종신보험</option>
+            <option>간병/치매보험</option>
+            <option>연금보험</option>
+          </select>
+        </div>
+        <button class="btn-submit" onclick="alert('상담 신청이 접수되었습니다. 곧 연락드리겠습니다.')">상담 신청하기</button>
+      </div>
+
+      <!-- QR -->
+      <div class="qr-wrap">
+        <div class="qr-box">
+          <div id="qrcode"></div>
+        </div>
+        <p class="qr-label">디지털 프로필<br>QR 스캔으로 바로 연결</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <p>삼성생명보험㈜ | 중앙법인지점 GFC 정동화</p>
+    <p style="margin-top:4px;">본 페이지는 보험 상품 안내를 위한 참고 자료입니다.</p>
+  </div>
+
+</div>
+
+<script>
+  new QRCode(document.getElementById('qrcode'), {
+    text: 'https://mws.samsunglife.com:8440/#/main/bc/TSSBC500M?mdigitkey=0002285859',
+    width: 120, height: 120,
+    colorDark: '#042C53', colorLight: '#ffffff',
+    correctLevel: QRCode.CorrectLevel.M
+  });
+
+  new Chart(document.getElementById('compareChart'), {
+    type: 'radar',
+    data: {
+      labels: ['업무중 재해', '통근재해', '직업성 질병', '법적 배상책임', '해외출장 보장', '보장 한도'],
+      datasets: [
+        { label: '기업재해보장보험', data: [95,90,85,88,80,92], backgroundColor: 'rgba(24,95,165,0.18)', borderColor: '#185FA5', borderWidth: 2, pointBackgroundColor: '#185FA5', pointRadius: 3 },
+        { label: '근재보험', data: [80,50,55,70,40,65], backgroundColor: 'rgba(29,158,117,0.12)', borderColor: '#1D9E75', borderWidth: 2, pointBackgroundColor: '#1D9E75', pointRadius: 3 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: { r: { min: 0, max: 100, ticks: { display: false }, grid: { color: 'rgba(0,0,0,0.07)' }, angleLines: { color: 'rgba(0,0,0,0.07)' }, pointLabels: { color: '#888', font: { size: 11 } } } }
+    }
+  });
+
+  new Chart(document.getElementById('ceoChart'), {
+    type: 'bar',
+    data: {
+      labels: ['5년납', '10년납', '20년납', '전기납'],
+      datasets: [
+        { label: '납입 보험료', data: [120,100,80,60], backgroundColor: '#185FA5', borderRadius: 4 },
+        { label: '절세 효과', data: [29,24,19,14], backgroundColor: '#1D9E75', borderRadius: 4 }
+      ]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#888', font: { size: 11 }, autoSkip: false } },
+        y: { grid: { color: 'rgba(0,0,0,0.07)' }, ticks: { color: '#888', font: { size: 11 }, callback: v => v + '만' } }
+      }
+    }
+  });
+</script>
+</body>
+</html>
