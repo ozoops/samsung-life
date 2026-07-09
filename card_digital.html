@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>정동화 | 기업재무전문가</title>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Nanum Gothic','Apple SD Gothic Neo',sans-serif;background:#0d1a3a;min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:28px 16px 40px;}
+.page-header{color:rgba(255,255,255,0.35);font-size:10px;letter-spacing:0.12em;text-transform:uppercase;margin-bottom:20px;text-align:center;}
+
+/* Card display */
+.card-wrap{width:100%;max-width:360px;margin:0 auto;}
+.card-face{border-radius:14px;overflow:hidden;width:100%;}
+
+/* Front */
+.card-front{background:linear-gradient(135deg,#e8eaf0 0%,#f4f5f8 45%,#dde0e8 100%);border:1px solid rgba(255,255,255,0.85);display:flex;flex-direction:column;justify-content:space-between;padding:22px 24px 18px;height:210px;}
+.ft{display:flex;justify-content:space-between;align-items:flex-start;}
+.nk{font-size:26px;font-weight:800;color:#0c1a3a;letter-spacing:0.18em;line-height:1.1;}
+.tt{display:inline-block;margin-top:6px;background:#1428A0;color:#fff;font-size:10px;font-weight:700;padding:2px 10px;border-radius:3px;letter-spacing:0.04em;}
+.br{text-align:right;}
+.br .b1{font-size:16px;font-weight:800;color:#1428A0;font-family:Arial,sans-serif;line-height:1;}
+.br .b2{font-size:8px;color:#1428A0;letter-spacing:0.04em;font-family:Arial,sans-serif;margin-top:2px;}
+.br .b3{font-size:7.5px;color:#777;margin-top:5px;}
+.on{font-size:12px;font-weight:700;color:#1a2a5c;margin-bottom:5px;}
+.cl{font-size:10px;color:#444;line-height:1.8;}
+.cl .hi{color:#1279C6;font-weight:700;font-size:12.5px;}
+
+/* Back */
+.card-back{background:#1279C6;display:flex;flex-direction:column;padding:20px 22px 16px;justify-content:space-between;height:210px;}
+.btop{display:flex;justify-content:space-between;align-items:flex-start;}
+.btitle{font-size:14px;font-weight:800;color:#fff;letter-spacing:0.04em;}
+.blw{text-align:right;}
+.blw .l1{font-size:14px;font-weight:800;color:#fff;font-family:Arial,sans-serif;line-height:1;}
+.blw .l2{font-size:8px;color:rgba(255,255,255,0.65);letter-spacing:0.04em;font-family:Arial,sans-serif;}
+.svc-list{margin-top:10px;}
+.si{display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;}
+.slb{font-size:10px;font-weight:700;color:rgba(255,255,255,0.95);white-space:nowrap;min-width:74px;}
+.ss{color:rgba(255,255,255,0.35);font-size:10px;}
+.st{font-size:9.5px;color:rgba(255,255,255,0.82);line-height:1.5;}
+.sg{font-size:9px;color:rgba(255,255,255,0.62);font-style:italic;margin:10px 0 6px;line-height:1.5;}
+.bd2{height:1px;background:rgba(255,255,255,0.22);margin:3px 0;}
+.bcr{font-size:8.5px;color:rgba(255,255,255,0.6);line-height:1.9;}
+.bcr em{color:rgba(255,255,255,0.35);font-style:normal;margin-right:4px;}
+
+/* Toggle button */
+.toggle-wrap{max-width:360px;width:100%;margin:10px auto 16px;display:flex;gap:8px;}
+.toggle-btn{flex:1;padding:11px;border-radius:9px;font-family:'Nanum Gothic',sans-serif;font-size:12px;font-weight:700;border:1px solid rgba(255,255,255,0.18);cursor:pointer;transition:all 0.18s;background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.55);}
+.toggle-btn.active{background:#1428A0;color:#fff;border-color:#1428A0;}
+
+/* Action */
+.ag2{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:360px;width:100%;margin:0 auto 14px;}
+.ab{display:flex;align-items:center;justify-content:center;gap:7px;padding:13px 8px;border-radius:10px;text-decoration:none;font-family:'Nanum Gothic',sans-serif;font-size:12.5px;font-weight:700;border:none;cursor:pointer;}
+.ac{background:#1428A0;color:#fff;}
+.ae{background:rgba(255,255,255,0.08);color:#fff;border:1px solid rgba(255,255,255,0.18);}
+
+/* Career */
+.cb{max-width:360px;width:100%;margin:0 auto;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:13px;padding:16px;}
+.cb h3{font-size:9.5px;color:rgba(255,255,255,0.35);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px;}
+.cr2{display:flex;gap:10px;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.07);}
+.cr2:last-child{border-bottom:none;}
+.cy{font-size:9.5px;color:rgba(255,255,255,0.38);white-space:nowrap;min-width:70px;padding-top:1px;}
+.co{font-size:12px;font-weight:700;color:rgba(255,255,255,0.82);line-height:1.3;}
+.cr3{font-size:10px;color:rgba(255,255,255,0.48);margin-top:2px;line-height:1.4;}
+.aw{display:inline-block;background:rgba(200,168,76,0.15);border:1px solid rgba(200,168,76,0.3);color:#c9a84c;font-size:8.5px;font-weight:700;padding:2px 7px;border-radius:3px;margin-top:3px;}
+.foot{margin-top:20px;font-size:9.5px;color:rgba(255,255,255,0.16);text-align:center;letter-spacing:0.05em;}
+</style>
+</head>
+<body>
+<p class="page-header">Digital Business Card</p>
+
+<div class="card-wrap">
+  <!-- Front (default visible) -->
+  <div class="card-face card-front" id="cardFront">
+    <div class="ft">
+      <div><div class="nk">정 동 화</div><div class="tt">기업재무전문가</div></div>
+      <div class="br"><div class="b1">Samsung</div><div class="b2">Financial Networks</div><div class="b3">삼성생명 소속</div></div>
+    </div>
+    <div>
+      <div class="on">삼성금융네트워크 · 중앙법인지점</div>
+      <div class="cl"><span class="hi">M. 010-2190-5833</span><br>T. 02-778-8003 &nbsp;|&nbsp; E. ozoops5911@gmail.com<br>서울 중구 세종대로 73 태평로빌딩 14층</div>
+    </div>
+  </div>
+  <!-- Back (hidden by default) -->
+  <div class="card-face card-back" id="cardBack" style="display:none;">
+    <div class="btop">
+      <div class="btitle">기업재무전문가</div>
+      <div class="blw"><div class="l1">Samsung</div><div class="l2">Financial Networks</div></div>
+    </div>
+    <div class="svc-list">
+      <div class="si"><span class="slb">기업보장분석</span><span class="ss">|</span><span class="st" style="white-space:nowrap;font-size:8.5px;">근로자 재해사고의 경제적 Risk 분석 및 대응책</span></div>
+      <div class="si"><span class="slb">CEO 컨설팅</span><span class="ss">|</span><span class="st" style="white-space:nowrap;font-size:8.5px;">합법적 소득원 분석을 통한 절세전략 수립</span></div>
+      <div class="si"><span class="slb">가업승계 플래닝</span><span class="ss">|</span><span class="st" style="white-space:nowrap;font-size:8.5px;">영속적인 가업영위를 위한 단계적인 준비</span></div>
+    </div>
+    <div class="sg">"법인컨설팅의 동반자, 기업보장을 책임지는 기업재무전문가"</div>
+    <div class="bd2"></div>
+    <div class="bcr"><em>대표전화</em>1588-3114 &nbsp;<em>사고보험금</em>1577-4118 &nbsp;<em>퇴직연금</em>1588-3115</div>
+  </div>
+</div>
+
+<!-- Toggle Buttons -->
+<div class="toggle-wrap">
+  <button class="toggle-btn active" id="btnFront" onclick="showFront()">앞면</button>
+  <button class="toggle-btn" id="btnBack" onclick="showBack()">뒷면 보기</button>
+</div>
+
+<!-- Action Buttons -->
+<div class="ag2">
+  <a class="ab ac" href="tel:010-2190-5833">📞 전화연결</a>
+  <a class="ab ae" href="mailto:ozoops5911@gmail.com">✉️ 이메일</a>
+</div>
+
+<!-- Career -->
+<div class="cb">
+  <h3>주요 경력</h3>
+  <div class="cr2"><div class="cy">2024</div><div><div class="co">NH농협생명</div><div class="cr3">금융소비자보호총괄책임자 (CCO)</div></div></div>
+  <div class="cr2"><div class="cy">2020 ~ 2023</div><div><div class="co">농협중앙회</div><div class="cr3">조합구조개선부 국장·부장 (기업재무구조 총괄)</div></div></div>
+  <div class="cr2"><div class="cy">1999 ~ 2009</div><div><div class="co">농협중앙회</div><div class="cr3">이사회사무국 (기업지배구조·의사결정구조)</div></div></div>
+  <div class="cr2"><div class="cy">1993</div><div><div class="co">고려대학교</div><div class="cr3">농업경제학과 졸업 · 경제학사</div></div></div>
+  <div class="cr2"><div class="cy">수상</div><div><div class="co">금융감독위원장 표창 <span style="font-size:9px;color:rgba(255,255,255,0.38)">(2007)</span></div><div class="cr3">농협중앙회장 표창 공로상 (2023) 외 다수</div><div class="aw">금융 전문가 공신력 검증</div></div></div>
+</div>
+<p class="foot">Samsung Financial Networks · 삼성생명 중앙법인지점</p>
+
+<script>
+function showFront(){
+  document.getElementById('cardFront').style.display='flex';
+  document.getElementById('cardBack').style.display='none';
+  document.getElementById('btnFront').classList.add('active');
+  document.getElementById('btnBack').classList.remove('active');
+}
+function showBack(){
+  document.getElementById('cardFront').style.display='none';
+  document.getElementById('cardBack').style.display='flex';
+  document.getElementById('btnFront').classList.remove('active');
+  document.getElementById('btnBack').classList.add('active');
+}
+</script>
+</body>
+</html>
